@@ -1,5 +1,7 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   {
@@ -7,12 +9,13 @@ const navLinks = [
     label: 'Home',
   },
   {
-    href: '/posts/',
+    href: '/posts',
     label: 'Posts',
   },
 ];
 
 const Header = () => {
+  const pathname = usePathname();
   return (
     <header className='w-full px-7 py-4 border-b flex justify-between'>
       <Link href={'/'}>
@@ -31,7 +34,11 @@ const Header = () => {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className='text-zinc-400 hover:text-zinc-600 transition-all duration-200'
+                className={`transition-all duration-200 ${
+                  pathname === link.href
+                    ? 'text-zinc-900'
+                    : 'text-zinc-400 hover:text-zinc-600 '
+                }`}
               >
                 {link.label}
               </Link>
